@@ -27,13 +27,41 @@ app.get('/', (req, res)=>{
 //simularemos un crud aqui
 //1er listado de todos los clientes 
 app.get('/customers', (req, res)=>{
-    res.send('List of Customers');
+    const sql = 'SELECT * FROM customers';
+    connection.query(sql, (error, results)=>{
+        if(error) throw error;
+        if(results.length>0){
+            res.json(results);
+        } else {
+            res.send('Not result');
+        }
+    });
+    // res.send('List of Customers');
 });
 app.get('/customers/:id', (req, res)=>{
-    res.send('Get customers by id');
+    const{id} = req.params
+    const sql =`SELECT * FROM customers WHERE id = ${id}`;
+    connection.query(sql, (error, result)=>{
+        if(error) throw error;
+        if(result.length>0){
+            res.json(result);
+        } else {
+            res.send('Not result');
+        }
+    })
+    // res.send('Get customers by id');
 });
 app.post('/add', (req, res)=>{
-    res.send('New customer');
+    const sql =`INSERT INTO customers SET ?`;
+    const customersObj = {
+        name: req.body.name,
+        city: req.body.city
+    }
+    connection.query(sql, customersObj, error =>{
+        if(error) throw error;
+        res.send('Customer Created!');
+    });
+    // res.send('New customer');
 });
 app.put('/update/:id', (req,res)=>{
     res.send('Update customers')
