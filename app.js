@@ -18,6 +18,30 @@ const connection = mysql.createConnection({
     database:'node20_mysql'    
 });
 
+//rutas
+//creamos los endpoint
+app.get('/', (req, res)=>{
+    res.send('Welcome to my API! ESTE ES EL PRIMER GET REALIZADO POR MI')
+});
+
+//simularemos un crud aqui
+//1er listado de todos los clientes 
+app.get('/customers', (req, res)=>{
+    res.send('List of Customers');
+});
+app.get('/customers/:id', (req, res)=>{
+    res.send('Get customers by id');
+});
+app.post('/add', (req, res)=>{
+    res.send('New customer');
+});
+app.put('/update/:id', (req,res)=>{
+    res.send('Update customers')
+});
+app.delete('/delete/:id', (req, res)=>{
+    res.send('Delete customer')
+})
+
 
 //check Connect
 connection.connect(error=>{
