@@ -64,10 +64,25 @@ app.post('/add', (req, res)=>{
     // res.send('New customer');
 });
 app.put('/update/:id', (req,res)=>{
-    res.send('Update customers')
+    const {id} = req.params;
+    const {name, city} = req.body;
+    const sql = `UPDATE customers SET name = '${name}', city = '${city}' WHERE id = ${id}`
+    connection.query(sql,  error =>{
+        if(error) throw error;
+        res.send('Customer Updated!');
+    });
+
+    // res.send('Update customers')
 });
 app.delete('/delete/:id', (req, res)=>{
-    res.send('Delete customer')
+    const {id} = req.params;
+    const sql = `DELETE FROM customers WHERE id = ${id}`;
+    connection.query(sql,  error =>{
+        if(error) throw error;
+        res.send('Delete Customer!');
+    });
+
+    // res.send('Delete customer')
 })
 
 
