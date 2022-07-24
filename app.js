@@ -7,14 +7,14 @@ const PORT = process.env.PORT || 3050;
 
 const app = express();
 
-app.use(bodyParser().json());
+app.use(bodyParser.json());
 
 //mysql
 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password:'rootpass',
+    password:'1234',
     database:'node20_mysql'    
 });
 
